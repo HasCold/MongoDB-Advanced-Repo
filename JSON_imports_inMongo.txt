@@ -1,0 +1,8 @@
+mongoimport jsonfile.json -d database_name -c collection_name
+
+mongoimport products.json -d shop -c products
+
+mongoimports products.json -d shop -c products --jsonArray -->> Use when your documents are in the array means array of an objects
+
+
+

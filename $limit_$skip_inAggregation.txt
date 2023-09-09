@@ -1,0 +1,8 @@
+********************************* $limit *************************************
+
+db.sales.aggregate([{$unwind: "$products"}, {$match: {id: {$gt: "1"} } }, {$group: {_id: "$name", allArrays: {$addToSet: "$products"} }}, {$project: {_id: 1, allArrays: 1, arrayLength: {$size: "$allArrays" }} }, {$limit: 1} ])
+
+
+********************************* $skip ******************************************
+
+db.sales.aggregate([{$unwind: "$products"}, {$match: {id: {$gt: "1"} } }, {$group: {_id: "$name", allArrays: {$addToSet: "$products"} }}, {$project: {_id: 1, allArrays: 1, arrayLength: {$size: "$allArrays" }} }, {$limit: 2}, {$skip: 1} ])

@@ -1,0 +1,25 @@
+Projection
+
+db.collection.find({}, { field1: 1, field2: 1 })
+db.sales.find({products: {$size: 2 }}, {products: 1}) -->> Projection allows your field whether to show the specific fields with 1 value or not to show the specific fields with value: 0 
+
+db.products.find({multiMedia: {$size: 1}}, {multiMedia: 1, _id: 0}) 
+
+-->> Here it means that in the another curly braces show specific fields related to multiMedia because their value is 1 and not to shown their id because their value is 0
+
+
+db.products.find({multiMedia: {$size: 1}}, {videoUrl: 0, userId: 0, id: 0, _id: 1, multiMedia: 0})
+
+1. To include specific fields, use projection with a value of 1 for the fields you want.
+2. To exclude fields, use projection with a value of 0 for the fields you want to exclude.
+3. You cannot include and exclude fields simultaneously in the same query projection.
+
+
+************************** Embedded Documents **********************************************
+
+- Query documents inside embedded documents using dot notation.
+
+db.collection.find({ "parent.child": value })
+db.sales.find({"products.total": {$gt: "100"}}, {products: 1, _id: 0} ).limit(2)
+
+In mongoDB, if you have a simple objects or array of an objects , you can access the field elements by the dot notation.

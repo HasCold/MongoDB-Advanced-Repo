@@ -1,0 +1,24 @@
+Indexes in MongoDB
+
+What are Indexes?
+
+- Indexes are specialized data structures that optimize data retrieval speed in MongoDB.
+- Indexes store a fraction of data in a more searchable format.
+- They enable MongoDB to locate data faster during queries.
+- Indexes are separate from collections and multiple indexes can exist per collection.
+
+Benefits of Indexes
+
+- Faster Querying: Indexes drastically accelerate data retrieval, particularly for large collections.
+- Efficient Sorting: Indexes facilitate rapid sorting based on specific fields.
+- Improved Aggregation: Aggregation operations become more efficient with optimized indexes.
+- Indexing on Multiple Fields: Complex queries can be executed efficiently by utilizing multiple fields in indexes.
+
+
+If you want to watch the that how much process timing could taken by MongoDB :- 
+
+
+Use explain() method to understand query execution in detail. 
+so use the explain() like -->> db.products.find({id: {$gt: "2135" } }).explain()
+
+db.products.find({id: {$gt: "2135" } }).explain("executionStats")

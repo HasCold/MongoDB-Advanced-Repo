@@ -1,0 +1,41 @@
+Managing Indexes
+
+Indexes works helps to work on the large number of data we have to processed
+Indexes basically used for the time optimization of the millions of data
+
+db.products.createIndex({ field: 1 });
+(1) for storing indexes in ascending order
+• (-1) for storing indexes in descending order
+
+db.collection.getIndexes();
+_id is a default index.
+
+db.collection.dropIndex({ field: 1 });
+db.collection.dropIndex("index_name");
+
+Did you realize that _id is already there? _id is automatically added by mongodb and it's a default unique index.
+
+e.g.
+1st Example :-
+
+1. db.products.createIndex("name": 1)
+2. db.products.getIndexes()
+3. db.products.find({name: {$eq: "hasan"}}).explain("executionStats")
+
+
+2nd Example :-
+
+1. db.products.createIndex({"id": 1 })
+2. db.products.getIndexes() -->> 
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { name: 1 }, name: 'name_1' },
+  { v: 2, key: { id: 1 }, name: 'id_1' }
+]
+3. db.products.find({id: {$lte: "2139"} }).explain("executionStats")
+
+
+DropIndex :- 
+
+ db.products.dropIndex({name: 1})
+ db.products.dropIndex({id: 1 })

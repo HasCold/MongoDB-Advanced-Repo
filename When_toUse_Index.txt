@@ -1,0 +1,11 @@
+When Not to use Indexes ?
+
+Indexes on Rarely Used Fields
+
+• Indexing fields that are seldom used in queries can consume unnecessary space and resources.
+
+Balancing Act
+• Indexing requires disk space and memory. Overindexing can lead to resource strain and impact overall performance.
+
+Indexing Small Collections
+• In smaller collections the cost of index maintenance might outweigh the benefits gained from querying

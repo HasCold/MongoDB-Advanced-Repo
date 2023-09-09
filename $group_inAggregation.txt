@@ -1,0 +1,55 @@
+$group
+
+The group method in mongoDB works same as the reducer method in JavaScript 
+
+The $group stage groups documents by specified fields and performs aggregate operations on grouped data.
+{
+$group:
+{
+_id: <expression>, // Group key
+<field1>: {<accumulator1> : <expression1> },  // Here we are creating a new field
+}
+}
+
+aggregation link :- https://wwww.mongodb.com/docs/v6.0/reference/operator/aggregation/group/#considerations 
+
+db.products.aggregate([
+{$group: {_id: { comp: "$company" }, totalProducts: { $sum: 1}}} ]);
+
+e.g. 
+
+Means by the group method of aggregate framework we have to tell them check the name fields of the document and whose name are same so you should have to give sum of the price of that particular related documents.
+
+1. db.products.aggregate([ {$group: {_id: "$name", totalSum: {$sum: "$price" } }} ])
+2. db.products.aggregate([ {$match: {"id": {$gt: "2135" }} }, {$group: {_id: "$name", totalPrice: {$sum: "$price" } } } ])
+3. db.products.aggregate([ {$match: {id: {$gt: "2135"} }}, {$group: {_id: "$name", totalPrice: {$sum: "$price" }, avgPrice: {$avg: "$price"} } } ])
+4. db.products.aggregate([{$match: {id: {$gt: "2135"} }},{$group: {_id: "$name", totalPrice: {$sum: "$price" }, avgDiscountPrice: {$avg: "$price" } }}, {$project: {name: 1, totalPrice: 1, avgDiscountPrice: 1} }, {$sort: {totalPrice: -1 } } ])
+
+
+✔ This groups products by company and calculates the total number of products for each company.
+
+Here it means that sum the price of all company who have same properties
+
+The $group stage can calculate various aggregate values within grouped data.
+db.products.aggregate([
+{$group: {
+_id: {comp: "$company" },
+totalPrice: { $sum: "$price" },
+totalProducts: {$sum: 1 },
+averagePrice: {$avg: "Sprice"}
+}}
+]);
+
+
+****************************** Reducer **************************************  
+
+const array1 = [4, 5, 6, 7];
+const reducer = (accumulator, current Value) ⇒ accumulator + currentValue;
+console.log(array1. reduce (reducer)); //→ outputs: 4+5+6+7=22
+// with initil value
+
+console.log(array1. reduce (reducer, 2)); //→ outputs: 4+5+6+7=24
+
+4 4+59+6→15+7→22
+Initial value | acc cv
+first item

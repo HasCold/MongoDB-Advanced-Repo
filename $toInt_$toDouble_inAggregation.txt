@@ -1,0 +1,16 @@
+Use $toInt:
+
+When you have string values that represent integers and you need to convert them to numeric data types.
+Examples of such cases include converting string representations of IDs, counts, or quantities to integers.
+javascript
+Copy code
+{ $toInt: "$stringField" }
+
+
+Use $toDouble:
+
+When you have string values that represent floating-point numbers (decimal numbers) and you need to convert them to numeric data types.
+Examples include converting string representations of prices, percentages, or measurements to double or floating-point numbers.
+javascript
+Copy code
+{ $toDouble: "$stringField" }

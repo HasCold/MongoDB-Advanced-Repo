@@ -1,0 +1,28 @@
+Update Array and Embedded Documents
+
+If you have an array or array of an object then you will use the push and pop operator 
+
+Push:- Add element
+db.collection.updateOne({filter}, {$push: {arrayField: {"new Element", ...} }}) --- Push element at the last of an array
+e.g. 
+1. db.sales.updateOne({id: "4"}, {$push: {products: {id: "24", title: "Testing Update", price: "1550", total: "50" }}})
+2. db.sales.updateOne({id: "4"}, {$push: {products: {id: "12", title: "Hello Testing", price: "72", discount: "NO"}} }) 
+
+
+Pop:- Remove element
+db.collection.updateOne({filter}, {$pop: {arrayField: value}})  ---  Remove element at the last of an array
+e.g. 
+1. db.sales.updateOne({id: "4"}, {$pop: {products: 1 } })
+
+
+Positional Operator :- 
+Updating a field within an Embedded documents
+db.collection.updateOne({filter}, {$set: {"arrayField.$.text": "Updated Text"}}) --- Positional Opeartor
+
+You have an option to update the embedded documents(array of objects in the documents) whether by writing the postion of an array directly like in the 1st example or you can use the $ sign for the position like in the 3 example 
+
+e.g.
+1. db.products.updateOne({id: "2140"},{$set: {"multiMedia.0.name": "manoj" }})
+2. db.products.updateOne({name: "manoj", "multiMedia.id": "3240"}, {$set: {"multiMedia.$.place": "Karachi"} })
+3. db.products.updateOne({id: "2140", "multiMedia.id": "3240" }, {$set: {"multiMedia.$.name": "manoj singh" } })
+4. db.products.updateOne({id: "2140", "multiMedia.place": "Karachi"}, {$set: {"multiMedia.$.mediatype": 5} })

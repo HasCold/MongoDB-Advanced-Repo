@@ -1,0 +1,43 @@
+Elements Operator :- 
+
+$exists
+$type
+$size
+
+{field: {$exists: <boolean>}} -->> either true or false
+{field: {$type: "<bson-data-type>"}}
+{field: {$size: <array-length>}}
+
+$exists : -
+db.products.find({price: {$exists: true}})
+db.products.find({price: {$exists: true}, price: {$gte: "100"}})
+
+$type :- We have to check the data-types whether it is string, number, boolean
+
+1. The $type operator filters documents based on the BSON data type of a field
+2. Basically we need to search or find the fields based on types (BSON Type) for example 
+
+The <BSONType> value can be one of the following :-
+
+1: double
+2: string
+3: object
+4: array
+5: Binary Data
+6: undefined
+7: objectId
+8: bool
+9: date
+10: null
+11: Regular Expression
+12: JavaScript Code
+
+e.g :- 
+db.products.find({id: {$type: "string" } }).count()
+db.products.find({videoUrl: {$type: "null" } }).count()
+db.products.find({_id: {$type: "objectId" } }).count()
+
+
+$size :-  Gives you the size of an array
+The $size operator matches document where the size of an array matches a specified value.
+db.products.find({comments: {$size: 2}})  

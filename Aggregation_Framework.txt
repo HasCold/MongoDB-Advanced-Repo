@@ -1,0 +1,30 @@
+************************** Aggregation Framework ********************************
+
+Definition: Aggregation is the process of performing transformations on documents and combining them to produce computed results.
+Aggregation is all about pipelines
+
+Pipeline Stages: Aggregations consist of multiple pipeline stages, each performing a specific operation on the input data. 
+
+Benefits :- 
+✔ Aggregating Data: Complex calculations and operations are possible.
+✔ Advanced Transformations: Data can be combined, reshaped, and computed for insights.
+✔ Efficient Processing: Aggregation handles large datasets efficiently.
+
+
+Aggregation Operation
+
+$match
+The $match stage is similar to the query used as the first argument in .find(). It filters documents based on specified conditions.
+
+• Syntax
+{$match: {<query> }}
+
+You must remember that while using aggregation paranthesis, [] and then curly braces will be used ; Array of an Object
+
+Example :-
+db.products.aggregate([
+{ $match: {company: "64c23350e32f4a51b19b9235"}} ])
+
+1. db.products.aggregate([{$match: {"name": "hasan"} } ])
+2. db.products.aggregate([{$match: {"id": {$gte: "2139" } } } ])
+3.  db.products.aggregate([ {$match: {"commentCount": {$eq: '0' } } } ])

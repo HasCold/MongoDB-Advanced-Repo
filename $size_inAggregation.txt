@@ -1,0 +1,16 @@
+$size 
+
+The $size stage calculates the length of an array field
+
+{$size: <array>}
+
+db.products.aggregate([
+    {$project: {name: 1, numberofColors: {$size: "$colors"}}}
+])
+
+e.g.
+1. db.sales.aggregate([{$unwind: "$products"}, {$match: {id: {$gt: "1"} } }, {$group: {_id: "$name", allArrays: {$addToSet: "$products"} }}, {$project: {_id: 1, allArrays: 1, arrayLength: {$size: "$allArrays" } } }])
+
+
+NOTE :- 
+We cann't do this, bc the $size operator is not allowed directly within the $group operator stage. Instead, you can use it combination with other aggregation operators or in separate pipeline Stages

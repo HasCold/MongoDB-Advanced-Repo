@@ -1,0 +1,25 @@
+$project
+
+This $project method in aggregation is same as like we have $projection in find operations
+Aggregation can give you a ability to perform more operations like in the $project 
+
+The $project stage reshapes documents, includes or excludes fields, and performs operations on fields.
+
+{$project: {<field1>:<expression1>,...}}
+
+e.g. 
+
+1. db.products.aggregate([ {$project: {price: 1} } ])  // It only give us the price and their ObjectId
+2. db.products.aggregate([ {$project: {price: 1, _id: 0} } ])  // It only give us the price
+3. db.products.aggregate([ {$project: {name: 1, price: 1, _id: 0, discountedPrice: {$multiply: ["$price", 0.8] } } } ])
+4. db.products.aggregate([{$match: {id: {$gt: "2135"} }},{$group: {_id: "$name", totalPrice: {$sum: "$price" }, avgDiscountPrice: {$avg: "$price" } }}, {$project: {name: 1, totalPrice: 1, avgDiscountPrice: 1} } ])
+
+5. db.products.aggregate([{$match: {id: {$gt: "2135"} }},{$group: {_id: "$name", totalPrice: {$sum: "$price" }, avgDiscountPrice: {$avg: "$price" } }}, {$project: {name: 1, totalPrice: 1, avgDiscountPrice: 1} }, {$sort: {totalPrice: -1 } } ])
+
+
+db.products.aggregate([
+{$project:{name: 1, discountedPrice: {$subtract: ["$price", 5]}}}
+]);
+
+• Projects the name field and calculates a discounted Price field by subtracting 5 from the price.
+• $sum, $subtract, $multiply, $avg, etc. are types of expression operator.

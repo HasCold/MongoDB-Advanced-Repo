@@ -1,0 +1,28 @@
+$filter
+
+The $filter stage filters elements of an array based on specified documents
+
+{
+    $project: {
+        <field> : {
+            $filter: {
+                input: '$<array>',
+                as: '<variable>',
+                cond: <expression>
+            }
+        }
+    }
+}
+
+db.col.aggregate.([{
+    $project: {
+        name: 1,
+        Hasan: {
+            $filter: {
+                input: "$value",   // representing your existing field
+                as: "val",  // alias name
+                cond: {$gt: ["$$val", 30]}   // double $ sign means representing the val shows value field
+            }
+        }
+    }
+}])

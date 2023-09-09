@@ -1,0 +1,15 @@
+$all vs $elemMatch
+
+This $all operator selects the documents where the value of a field is an array that contains all the specificed documents.
+
+{<field>: {$all: [<value1>, <value2> ...]}}
+e.g.
+db.sales.find({"products.title": {$all: ["Spring and summershoes", "Pubg Printed Graphic T-Shirt"] }})
+
+The $elemMatch operator matches documents that contain an array field with at least one element that matches all the specified query criteria.
+
+{<field>: {$elemMatch: {<query1>, <query2>, ...}}}
+e.g.
+
+ db.sales.find({"products": {$elemMatch: {"title": "Chain Pin Tassel Earrings", "price": "45"} }})
+

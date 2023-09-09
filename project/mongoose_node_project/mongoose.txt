@@ -1,0 +1,7 @@
+Mongoose with MongoDB
+
+It's an Object Data Modelling (ODM) library for mongoDB and node.js
+
+It makes mongoDB interaction more starightforward and organized
+
+It provides a structured, schema-based data modelling approach 

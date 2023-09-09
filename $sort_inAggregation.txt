@@ -1,0 +1,13 @@
+$Sort
+
+{$sort: {<field>: <order>}}
+
+db.products.aggregate([
+{$sort: {totalProducts: 1}}
+]);
+
+e.g.
+
+1. db.products.aggregate([ {$match: {id: {$gt: "2135"} } }, {$group: {_id: "$name", totalPrice: {$sum: "$price"}, avgPrice: {$avg: "$price" } } }, {$sort: {totalPrice: 1} } ])  -->> Ascending order
+
+2.  db.products.aggregate([ {$match: {id: {$gt: "2135"} } }, {$group: {_id: "$name", totalPrice: {$sum: "$price"}, avgPrice: {$avg: "$price" } } }, {$sort: {totalPrice: -1} } ]) -->> Descending order

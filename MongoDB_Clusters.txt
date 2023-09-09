@@ -1,0 +1,18 @@
+******************************* Clusters **********************************
+
+In mongoDB, a clusters refers to a group of interconnected servers (nodes) that work together to store and manage data  
+
+In mongoDB --->> Horizontal Scaling
+
+Add more resources like virtual machines to your computer to spread out the workload across them.
+. Increase high availability
+. Fewer periods of downtime
+. Easy to resize according to your needs 
+
+
+SQL DataBase  --->>> Vertical Scaling
+
+Increase or decreases the capacity of existing servers/instances.
+. No change have to be made to the application code
+. Less complex network
+. Less complicated maintenance

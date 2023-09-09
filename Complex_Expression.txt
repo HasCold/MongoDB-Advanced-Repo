@@ -1,0 +1,13 @@
+Complex Expression
+
+$expr -->> Expression Operator
+- The $expr operator allows using aggregation expressions within a query
+- Useful when you need to compare fields from the same document in a more complex manner
+
+Syntax -->>
+{$expr: {operator: [field, value]}}
+
+Example:
+db.products.find({$expr: [$gt: {"$price", 1200}]}) -->> Field is represented through a dollar sign $
+
+db.products.find({$expr: {$gt: [{$multiply: ["$quantity", "$price]}, "$targetPrice"]}})

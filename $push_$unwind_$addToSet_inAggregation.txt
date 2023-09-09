@@ -1,0 +1,59 @@
+********************************* $push ********************************  
+
+The $push stage adds elements to an array field within documents.
+{$push: <expression> }
+
+db.products.aggregate([
+{$group: {_id: {company: "$company" }, products: {$push: "$name"}}}
+]);
+
+
+$group :- 
+
+{ $group:{
+_id: <expression>, // Group key
+<field1>: {<accumulator1> : <expression1> },  // Here we are creating a new field
+}}
+
+e.g. 
+{$group: {_id: "$price", allColors: {$push: "$colors"}} } 
+
+
+********************************* $unwind *************************************
+
+The $unwind stage deconstructs an array field and produces multiple documents
+$unwind operator will only work with the array documents
+
+{$unwind: <array> }
+
+db.products.aggregate([
+{$unwind: "$colors" },
+{$group: {_id: { company: "$company" }, products: { $push: "$colors"}}}
+]);
+
+e.g. 
+
+Here it means, deconstructs the products array first through "$unwind" operator then the result pipes with "$match" where filter out the documents whose id is greater than 1 and then it pipes with the "$group" where the unique name of documents will be same and their products array will "$push" into the new field allArray   
+
+1. db.sales.aggregate([ {$unwind: "$products"}, {$match: {id: {$gt: "1"} }}, {$group: {_id: "$name", allArray: {$push: "$products" }} } ])
+
+
+
+******************************* $addToSet ********************************************
+
+$addToSet
+
+The $addToSet stage adds elements to an array field while preventing duplicates.
+The $addToSet operator will add the array into the new field but preventing duplicates like we have in javascript, the new Set property 
+
+db.products.aggregate([
+{ $unwind: "$colors"},
+{$group:{
+_id: {company: "$company" },
+products: {$addToSet: "$colors"}
+}}
+])
+
+e.g.
+
+1. db.sales.aggregate([ {$match: {id: {$gt: "1" } }}, {$unwind: "$products"}, {$group: {_id: "$name", allArrays: {$addToSet: "$products" }} } ])

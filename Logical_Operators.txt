@@ -1,0 +1,26 @@
+Logical Operators 
+
+$and -->> IF any condition is false then the output is not going to show 
+$or -->> If atleast any one of the following condition is true then the output is going to show  
+$not
+$nor
+
+Syntax :- 
+AND Operator >>
+{$and: [{condition1}, {condition2}, ...]} -->> // Array of expressions
+db.products.find({$and: [{"id": {$lt: "2140"}}, {"name": {$eq: "hasan"}}] }).
+
+
+OR Operator >>
+{$or: [{condition1}, {condition2}, ...]} -->> Atleast One condition is true to show something ; if all condition is false then the output will not shown
+db.products.find({$or: [{"id": {$lt: "2140"}}, {"name": {$eq: "hasan"}}] }). // Array of expressions
+
+NOT Operator >>
+{field: {$not: {operator: value}}}
+db.products.find({"id": {$not: {$gte: "2137"}} })
+
+NOR Operator >> Means according to the condition leave all that data and show instead of remaining rest data which will not according to that condition
+db.products.find({$nor: [{"id": {$lt: "2140"}}, {"name": {$eq: "hasan"}}] }). // Array of expressions
+
+In mongoDB when you provide mulitple fields with in a single query documents, MongoDB treats them as an implicit AND operations
+

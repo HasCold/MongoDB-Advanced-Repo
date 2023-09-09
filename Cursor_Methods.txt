@@ -1,0 +1,21 @@
+Cursor Methods
+
+Thses 4 methods are called as cursor methods;
+
+count()
+limit()
+skip()
+sort()
+
+db.products.find({price : {$gt : 250}}).limit(4).skip(1) --->>  Means give us 4 data according to the limit() but skip the first one due to the skip() and now shows the proceeding data   
+
+db.products.find({price : {$gt : 250}}).limit(3).sort(price: 1)
+
+sort:-
+1 for ascending order
+-1 for descending order
+
+Use with Caution :- 
+
+- Be cautious when using limit() and skip() on large collections
+- Consider using indexing to optimize query performance

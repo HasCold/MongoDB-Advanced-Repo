@@ -1,0 +1,24 @@
+Comparison Operators 
+
+$eq -->> Equal to
+$ne -->> Not Equal to
+$gt -->> Greater Than
+$gte -->> Greater Than and Equal to
+$lt -->> Less Than
+$lte -->> Less Than and Equal to
+$in -->> In Operator
+$nin -->> Not In Operator
+
+Synatx :- 
+
+Operator will only used in the curly braces with $ sign
+
+db.collection_name.find({"fieldname": {$operator: value}})
+db.products.find({"price": {$eq: 699}})
+
+When we use $in or $nin operator then it must be in array values like below:- 
+
+db.products.find({"price": {$in: [250, 110, 219, 22]}});
+
+limit() -->> For the condition
+count() -->> Gives you the count of your query number

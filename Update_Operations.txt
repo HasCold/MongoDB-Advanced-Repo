@@ -1,0 +1,28 @@
+updateOne() and updateMany()
+
+Now you can remember when we use second curly braces in find() operations that is for the projection. But in the update operations we have second curly braces to update some documents by using the $set operator and first curly braces is for the filter
+
+db.collection.updateOne(
+    {filter},
+    {$set: {existingField: "newValue", newField: "new Value", ...}}
+)
+
+
+db.collection.updateMany(
+    {filter},
+    {$set: {existingField: "newValue", newField: "new Value", ...}}
+)
+
+e.g. 
+1. db.products.updateOne({id: "2138"}, {$set: {title: "Umer's Products" } })
+2. db.products.updateOne({id: "2140"},{$set: {"multiMedia.0.name": "manoj" }})
+
+************************** Advanced Operation to Update ********************************************** 
+
+How can we update the field name of the document ?
+
+Removing and Renaming fields
+
+db.collectionName.updateOne({filter}, {$unset: {fieldName: 1}})  --- Removing
+
+db.collectionName.updateOne({filter}, {$rename: {oldFieldName: "newFieldName"}}) --- Renaming

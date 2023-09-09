@@ -1,0 +1,5 @@
+Delete Operations
+
+db.collectionname.deleteOne({_id: ObjectId("1234")})
+
+db.collectionname.deleteMany({"price": 55})
