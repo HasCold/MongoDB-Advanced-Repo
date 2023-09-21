@@ -1,0 +1,28 @@
+$inc Operator (Update Opeartions) :- 
+e.g:-
+
+1. db.products.updateMany({}, {$inc: {price: 2} })  // -->> First filter option is empty means update all the fields in the collections ; increment price by 2
+
+2.  db.products.updateOne({id: {$eq: "2140"}}, {$inc: {price: -4 } }) // -->> Decrement price by 4
+
+If change into the array of object : 
+db.products.updateMany(
+  { id: {$gt: "2138"} }, // Specify the document you want to update
+  { 
+    "$inc": {
+      "multiMedia.$[].mediatype": 2 // Increment mediatype by 2
+    }
+  },
+)
+
+
+
+$min and $max operator
+
+$min -->> Means set the value minimum
+$max -->> Means set the value maximum
+
+
+$mul Operator -->> Multiply operator
+
+db.products.updateMany({id: {$gt: "2138"}}, {$mul: {"price": 0.5} })

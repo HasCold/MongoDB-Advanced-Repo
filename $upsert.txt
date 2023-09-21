@@ -1,0 +1,7 @@
+$upsert operator 
+
+If the field is not existing so insert the field in to the collection and set them
+
+third argument is concern
+
+db.products.updateOne({name: "Huzi"}, {$set: {age: 100}}, {upsert: true})

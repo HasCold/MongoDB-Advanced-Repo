@@ -1,0 +1,11 @@
+If you are doing any transaction like insertOne, updateOne and deleteOne 
+
+Suppose you have a very big document and you have to insert it into the database and suddenly the database server is shutdown so what happens?
+
+Suppose the document you want to insert there is 50 fields in it and 25 fields were already insert in it before the database shutdown so here comes the atomicity in mongoDB
+
+It means your complete document will insert into the database or either the document will not be inserted
+
+Important Note :- The atomicity in mongoDB will achieved on a docuemnt level.
+For Example :- Suppose you are inserting the 10 documents at a certain time in the mongoDB database server and server suddenly shuts down and your only 5 doucments will inserted in to DB and rest of them 5 will not inserted at that time into the DB.It is done because the atomicity is achieved in mongoDB per level of doucments.
+You can later on add or insert the rest 5 doucments into the database server.

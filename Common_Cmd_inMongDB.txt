@@ -1,0 +1,10 @@
+If start mongoDB via your cmd prompt then first check what version you will use 
+
+mongod --version
+
+start mongo server by command :- 
+
+- mongosh
+- show dbs (Show your database documents)
+- use shop (suppose you have document like shop you will switch into it)
+- show collections (this will show your document collections)
