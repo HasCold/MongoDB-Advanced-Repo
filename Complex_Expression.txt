@@ -7,7 +7,9 @@ $expr -->> Expression Operator
 Syntax -->>
 {$expr: {operator: [field, value]}}
 
+$expr : always accept the numeric types , not string
+
 Example:
-db.products.find({$expr: [$gt: {"$price", 1200}]}) -->> Field is represented through a dollar sign $
+db.products.find({$expr: {$gt: ["$price", 1200]} }) -->> Field is represented through a dollar sign $
 
 db.products.find({$expr: {$gt: [{$multiply: ["$quantity", "$price]}, "$targetPrice"]}})

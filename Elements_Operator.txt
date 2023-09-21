@@ -31,6 +31,7 @@ The <BSONType> value can be one of the following :-
 10: null
 11: Regular Expression
 12: JavaScript Code
+13: number
 
 e.g :- 
 db.products.find({id: {$type: "string" } }).count()
