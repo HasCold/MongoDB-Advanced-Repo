@@ -1,0 +1,18 @@
+$capped collection
+
+If we want to make group of specific 4 items in documents
+and doesn't want to add another 5 items in collection so in this case capped collections operator will used
+
+e.g. :- 
+
+ db.createCollection("orderLogs", {capped: true, max: 4, size: 100000 }) -->> size of an array = 100000 (1 lakh) ; max items could be added in will be 4
+
+** If you are inserting any new 5 item in the collection then you will see the new four items in the collection
+
+ insert items in document :- 
+
+db.orderLogs.insertOne({product: "iphone", price: 1200000, userId: 11234, success: false })
+
+db.orderLogs.insertOne({product: "rice", price: 1421, userId: 102123, success: true })
+
+db.orderLogs.insertOne({product: "watch", price: 250, userId: 14541, success: true })
