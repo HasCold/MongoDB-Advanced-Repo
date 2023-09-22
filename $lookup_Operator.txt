@@ -1,0 +1,27 @@
+$lookup operator :- To join the collections in mongoDB
+
+There are four joins in the database world.
+
+1. Inner Join 
+2. Left Outer Join
+3. Right Outer Join
+4. Full Outer Join
+
+The $lookup is an aggregation pipeline that allows you to perform a left outer join betweeen two collections.
+
+lookup is used to achieve the left-outer join
+
+e.g. :-
+
+db.cust.aggregate([{
+    $lookup: {
+        from: "orders" -->> Means that join the customer collection with orders collection 
+        localField: id -->> In current collection(customer collection) is going to match from the id with join collection(orders)
+        foreignField: c_id -->> "c_id" in the orders collection which will  matched with the customer collection "id"
+        as: "OrderDetails" -->> Field new name will be set  
+    }
+}])
+
+1. db.cust.aggregate([{$lookup: {from: "orders", localField: "_id", foreignField: "customer_id", as: "OrderDetails" }  }]).pretty()
+
+2. db.cust.aggregate([{$lookup: {from: "orders", localField: "_id", foreignField: "customer_id", as: "OrderDetails"} }, {$match: {"OrderDetails": {$size: 1}} } ]).pretty()
