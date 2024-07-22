@@ -22,7 +22,32 @@ $min and $max operator
 $min -->> Means set the value minimum
 $max -->> Means set the value maximum
 
+[
+  {$group: {
+    _id: "$gender",
+    mostRecentRegistration: {$max: "$registered"}
+  }}
+]
+
+[
+  {$group: {
+    _id: "$gender",
+    mostRecentRegistration: {$min: "$registered"}
+  }}
+]
+
 
 $mul Operator -->> Multiply operator
 
 db.products.updateMany({id: {$gt: "2138"}}, {$mul: {"price": 0.5} })
+
+
+
+----------------- Find the averageAge -----------------
+[
+  {$group: {
+    _id: null,
+    averageAge: {$avg: "$age"}
+  }},
+  {$project: {_id: 0}}
+]

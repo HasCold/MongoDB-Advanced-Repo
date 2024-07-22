@@ -1,0 +1,205 @@
+db.user.aggregate([
+  {$match: {
+    $and:[
+    {isActive: {$eq: true}},
+    {gender: {$eq: "male"}}
+  ]}},
+  {$unwind: "$tags"},  // deconstructs the array tags in the field
+  {$group: {_id: "$favoriteFruit", Totalname: {$push: "$name"}}},
+  {$project: {_id: 0}}
+  
+])
+
+
+Q. Find the Average Age :- 
+
+db.user.aggregate([
+  {$group: {
+    _id: null,
+    averageAge: {$avg: "$age"}
+  }},
+  {$project: {_id: 0}}
+])
+
+
+// Cursor Method in mongoDB :- limit(), count(), sort(), skip()
+
+Q. List the top 5 common favourite fruits among the user
+
+db.user.aggregate([
+    {$group: {
+        _id: "$favoriteFruit",
+        count: {$sum: 1}  // The count field uses the $sum or $add accumulator to count the number of documents in each group. $sum: 1 means that for each document in the group, 1 is added to the count.
+    }},
+    {$sort: {count: -1}},
+    {$limit: 2}
+])
+
+
+Q. Find the total number of males and females.
+
+db.user.aggregate([
+  {$group: {
+    _id: "$gender",
+    count: {$sum: 1}
+  }}
+])
+
+
+Q. Which country has the highest number of registered users?
+
+db.user.aggregate([
+  {$group: {
+      _id: "$company.location.country",
+      userCount: {$sum: 1}
+    }
+  },
+  {$sort: {userCount: -1}},
+  {$limit: 3}
+])
+
+
+Q.List all unique eye colors present in the collection?
+
+[
+  {$group: {
+    _id: "$eyeColor"
+  }}
+]
+
+
+Q. What is the average number of tags per user?
+
+[
+  {$unwind: "$tags"},
+  {$group: {
+      _id: "$_id",
+      numberOfTags: {$sum: 1}
+    }
+  },
+  {$group: {
+    _id: null,
+    averageNumberOFTags: {$avg: "$numberOfTags"}
+  }}
+]
+
+
+
+Q. Find Most Recent Registration Date by gender
+
+[
+  {$group: {
+    _id: "$gender",
+    mostRecentRegistration: {$max: "$registered"}
+  }}
+]
+
+
+Q. Calculate Total Tags per Document
+
+[
+  {$unwind: "$tags"},
+  {$group: {
+    _id: "$_id",
+    totalTags: {$sum: 1}
+  }}
+]
+
+
+Q.  Find Top 3 Companies with Most Employees
+
+[
+  {$group: {
+      _id: "$company.title",
+      employees: {$sum: 1}
+    }
+  },
+  {$sort: {employees: -1}},
+  {$limit: 3}
+]
+
+
+Q. Calculate Age Range by favoriteFruit
+
+[
+  {$group: {
+    _id: "$favoriteFruit",
+    maxAgeRange: {$max: "$age"},
+    minAgeRange: {$min: "$age"},
+    avgAgeRange: {$avg: "$age"}
+  }}
+]
+
+
+Q. How many users have 'enim' as one of their tags ?
+
+[
+  {$match: {tags: "enim"}},
+  {$count: "User with enim tag"}
+]
+
+
+Q. What are the names and age of users who are inactive and have velit has a tag?
+
+[
+  {$match: {tags: "velit", isActive: false} },
+  {$project: {name: 1, age: 1, _id: 0}}
+]
+
+
+Q. Phone number matches we will use the regex :- 
+
+[
+  {$match: {"company.phone": /^\+1 \(940\)/}},
+  {$count: "TotalNumber"}
+]
+
+
+Q. Who have registered most recently
+
+[
+  {$sort: {registered: -1}},
+  {$limit: 4},
+  {$project: {name: 1, age: 1, registered: 1}}
+]
+
+
+Q. Categorize the user based on the favourite fruit
+
+[
+  {$group: {
+    _id: "$favoriteFruit",
+    Users: {$push: "$name"},
+    TotalUsers: {$sum: 1}
+  }}
+]
+
+
+Q. How many users have ad as the second tag in their list of tags ?
+
+[
+  {$match: {"tags.1": "ad"}}   //  Second position as "ad" in tag array
+]
+
+
+Q. Find users who have both "enim" and "id" as their tags
+
+[
+  {$match: {$and: [{"tags": "enim"}, {"tags": "id"}]}},
+]
+OR 
+[
+  {$match: {"tags": {$all: ["enim", "id"]}}}
+]
+
+
+Q. List all the companies located in the USA with their corresponding user account ?
+
+[
+  {$match: {"company.location.country": "USA"}},
+  {$group: {
+    _id: "$company.title",
+    userCount: {$sum: 1}
+  }},
+  // {$project: {"company.email": 1, "company.phone": 1, "company.address": 1}}
+]

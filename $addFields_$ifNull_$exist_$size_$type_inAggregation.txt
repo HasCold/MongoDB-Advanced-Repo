@@ -1,0 +1,84 @@
+
+exists , size, type are element operator 
+
+$addFields operator is used to add new fields in the document 
+
+[
+  {$addFields: {
+    numberOfTags: {
+      $type: "$tags"
+    }
+  }}
+]
+
+[
+  {$addFields: {
+    numberOfTags: {
+      $size: "$tags"
+    }
+  }}
+]
+
+
+$ifNull  for condition :- 
+
+[
+  {$addFields: {
+    numberOfTags: {
+      $size: {$ifNull: ["$tags", []]}
+    }
+  }}
+]
+
+ifNull Output :- 
+tags
+Array (5)
+numberOfTags
+5
+_id
+669e17b1b3c02e38d9c00ef6
+index
+0
+isActive
+false
+registered
+2015-02-11T04:22:39.000+00:00
+gender
+"female"
+name
+"Aurelia Gonzales"
+age
+20
+eyeColor
+"green"
+favoriteFruit
+"banana"
+
+company
+Object
+index
+1
+registered
+2018-01-23T04:46:15.000+00:00
+eyeColor
+"blue"
+gender
+"female"
+favoriteFruit
+"apple"
+
+company
+Object
+
+tags
+Array (4)
+_id
+669e17b1b3c02e38d9c00ef7
+name
+"Kitty Snow"
+isActive
+false
+age
+38
+numberOfTags
+4

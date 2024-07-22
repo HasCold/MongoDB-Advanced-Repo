@@ -33,10 +33,10 @@ Here it means that sum the price of all company who have same properties
 The $group stage can calculate various aggregate values within grouped data.
 db.products.aggregate([
 {$group: {
-_id: {comp: "$company" },
-totalPrice: { $sum: "$price" },
-totalProducts: {$sum: 1 },
-averagePrice: {$avg: "Sprice"}
+_id: "$company",  // based on what field we group together 
+totalPrice: { $sum: "$price" },   // newly created field
+totalProducts: {$sum: 1 },   // newly created field
+averagePrice: {$avg: "Sprice"}   // newly created field
 }}
 ]);
 

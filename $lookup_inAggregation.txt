@@ -1,0 +1,86 @@
+$lookup operator performs a left outer join to join a collection
+
+e.g. Join "id's" in some other document.
+
+[
+  {
+    $lookup: {
+    from: collection,  // What other collection or document want to join in this current document
+    localField: field,  // Current field where you are
+    foreignField: field,  // The field in which we match the relation between two collections or document. 
+    as: result
+  }}
+]
+
+---------------------- Example 1 -------------------------------------
+
+Current Document = books
+Join Document = authors
+
+[
+    {
+        $lookup: {
+    from: "authors",
+    localField: "author_id",
+    foreignField: "_id",
+    as: "author_details"
+    }
+    }
+]
+
+
+***************** Book Collection After Joining With Authors Collection :- 
+author_id: 100
+genre: "Classic"
+author_details: Array (1)
+=> 0
+Object
+_id: 100
+name: "F. Scott Fitzgerald"
+birth_year: 1896
+_id: 1
+title: "The Great Gatsby"
+
+
+
+---------------------- Example 2 -------------------------------------
+Make them more better
+$first Operator
+[
+  {
+    $lookup: {
+      from: "authors",
+      localField: "author_id",
+      foreignField: "_id",
+      as: "author_details"
+    }
+  },
+  // Pull out the first element from the author_details array field and store them as an Object
+  {$addFields: {
+ 			author_details: {
+        $first: "$author_details"
+      }    
+  }}
+]
+
+
+            OR
+
+
+$arrayElemAt Operator
+[
+  {
+    $lookup: {
+      from: "authors",
+      localField: "author_id",
+      foreignField: "_id",
+      as: "author_details"
+    }
+  },
+  // Pull out the first element from the author_details array field and store them as an Object
+  {$addFields: {
+    author_details: {
+      $arrayElemAt: ["$author_details", 0]
+    }
+  }}
+]
